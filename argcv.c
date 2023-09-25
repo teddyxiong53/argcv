@@ -57,13 +57,15 @@ void argcv_parse() {
                                 *((float*)options[j].value) = atof(argv[i]);
                             } else if (options[j].type == ARGCV_STRING) {
                                 *((const char**)options[j].value) = argv[i];
-                            } else if (options[j].type == ARGCV_BOOL) {
-                                *((bool*)options[j].value) = true;
-                            }
+                            } 
                         } else {
-                            fprintf(stderr, "Error: Missing value for option --%s\n", longopt);
-                            print_usage();
-                            exit(1);
+                            if (options[j].type == ARGCV_BOOL) {
+                                *((bool*)options[j].value) = true;
+                            } else {
+                                fprintf(stderr, "Error: Missing value for option --%s\n", longopt);
+                                print_usage();
+                                exit(1);
+                            }
                         }
                         break;
                     }
