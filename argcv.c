@@ -15,8 +15,8 @@ void argcv_init(int _argc, char** _argv) {
     num_options = 0;
 }
 
-static void print_usage() {
-    printf("Usage:\n");
+void argcv_print_usage() {
+    printf("%s Usage:\n", argv[0]);
     for (int i = 0; i < num_options; i++) {
         printf("  %s, %s: %s\n", options[i].shortopt, options[i].longopt, options[i].description);
     }
@@ -45,11 +45,14 @@ void argcv_parse() {
         if (arg[0] == '-') {
             if (arg[1] == '-') {
                 // Long option
-                const char* longopt = arg + 2;
+                const char* longopt = arg ;
+                
                 for (int j = 0; j < num_options; j++) {
+                    
                     if (options[j].longopt && strcmp(options[j].longopt, longopt) == 0) {
                         // Matched long option
                         i++;
+                        
                         if (i < argc) {
                             if (options[j].type == ARGCV_INT) {
                                 *((int*)options[j].value) = atoi(argv[i]);
@@ -63,7 +66,7 @@ void argcv_parse() {
                                 *((bool*)options[j].value) = true;
                             } else {
                                 fprintf(stderr, "Error: Missing value for option --%s\n", longopt);
-                                print_usage();
+                                argcv_print_usage();
                                 exit(1);
                             }
                         }
@@ -90,7 +93,7 @@ void argcv_parse() {
                                 *((bool*)options[j].value) = true;
                             } else {
                                 fprintf(stderr, "Error: Missing value for option -%c\n", shortopt);
-                                print_usage();
+                                argcv_print_usage();
                                 exit(1);
                             }
 

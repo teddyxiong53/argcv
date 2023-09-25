@@ -26,6 +26,7 @@ void argcv_init(int argc, char* argv[]);
 
 void argcv_parse();
 
+void argcv_print_usage();
 
 void argcv_add_option(const char* shortopt, const char* longopt, argcv_arg_type type, void* variable, const char* description);
 void argcv_destroy();
