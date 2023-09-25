@@ -1,9 +1,3 @@
-# argcv
-A simple option parse library.
-
-Basic usage:
-
-```c
 #include <stdio.h>
 #include <stdbool.h>
 #include "argcv.h"
@@ -30,30 +24,3 @@ int main(int argc, char* argv[]) {
     argcv_destroy();
     return 0;
 }
-```
-
-Compile and test:
-
-```
-make
-./test -i 42 -f 3.14 -s "Hello, World!" -b
-```
-
-
-
-Note:
-
-ARGCV_BOOL  this type means option has no value.
-
-```
-./test -b
-```
-
-ARGCV_INT / ARGCV_FLOAT / ARGCV_STRING must have a value.
-
-```
-./test -i 123
-```
-
--i/-f/-s/-b are just examples. You can use any char.
-
